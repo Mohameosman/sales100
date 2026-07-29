@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#7a171c" />
+  <title>Sales100 | مصفوفة المبيعات الشهرية</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">ANC</div>
+        <div class="brand-sub">LOGISTICS SOLUTIONS</div>
+      </div>
+      <div class="product-name">SALES100</div>
+
+      <nav class="main-nav" aria-label="القائمة الرئيسية">
+        <button class="nav-item" data-view="dashboard">⌂ <span>لوحة التحكم</span></button>
+        <button class="nav-item active" data-view="matrix">▦ <span>مصفوفة المبيعات</span></button>
+        <button class="nav-item" data-view="targets">◎ <span>المستهدفات</span></button>
+        <button class="nav-item" data-view="reps">♙ <span>المندوبون</span></button>
+        <button class="nav-item" data-view="clients">▣ <span>العملاء</span></button>
+        <button class="nav-item" data-view="reports">▤ <span>التقارير</span></button>
+        <button class="nav-item" data-view="alerts">♢ <span>التنبيهات</span><span class="badge" id="alertBadge">0</span></button>
+      </nav>
+
+      <div class="side-filter">
+        <h3>تصفية سريعة</h3>
+        <label>المنطقة
+          <select id="regionFilter"></select>
+        </label>
+        <label>المندوب
+          <select id="repFilter"></select>
+        </label>
+        <label>العميل
+          <select id="clientFilter"></select>
+        </label>
+
+        <h3>عرض البيانات</h3>
+        <div class="segmented vertical">
+          <button id="salesModeBtn" class="active">قيمة المبيعات</button>
+          <button id="bookingsModeBtn">عدد الحجوزات</button>
+        </div>
+        <button id="resetFiltersBtn" class="reset-btn">↻ إعادة تعيين الفلاتر</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>مصفوفة المبيعات الشهرية</h1>
+          <div class="subtitle">Monthly Sales Matrix</div>
+        </div>
+        <div class="top-actions">
+          <div class="month-control">
+            <button id="prevMonth" aria-label="الشهر السابق">‹</button>
+            <input id="monthPicker" type="month" value="2026-07" />
+            <button id="nextMonth" aria-label="الشهر التالي">›</button>
+          </div>
+          <div class="user-chip">
+            <span class="avatar">م</span>
+            <span><strong>أحمد مدير النظام</strong><small>مدير المبيعات</small></span>
+          </div>
+        </div>
+      </header>
+
+      <section class="kpis" id="kpiCards"></section>
+
+      <section class="matrix-card">
+        <div class="matrix-toolbar">
+          <div>
+            <h2>مصفوفة المبيعات (المندوب / العميل × اليوم)</h2>
+            <p id="matrixMeta">—</p>
+          </div>
+          <div class="toolbar-actions">
+            <div class="search-wrap">
+              <span>⌕</span>
+              <input id="searchInput" type="search" placeholder="بحث سريع..." />
+            </div>
+            <button id="expandAllBtn">توسيع الكل</button>
+            <button id="collapseAllBtn">طي الكل</button>
+            <button id="exportBtn">تنزيل CSV</button>
+            <button id="printBtn">طباعة</button>
+          </div>
+        </div>
+
+        <div class="table-wrap" id="tableWrap">
+          <table class="sales-matrix" id="matrixTable">
+            <thead id="matrixHead"></thead>
+            <tbody id="matrixBody"></tbody>
+            <tfoot id="matrixFoot"></tfoot>
+          </table>
+        </div>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel">
+          <h3>دليل الألوان</h3>
+          <div class="legend">
+            <span><i class="legend-box good"></i> أعلى من الهدف اليومي</span>
+            <span><i class="legend-box near"></i> قريب من الهدف</span>
+            <span><i class="legend-box low"></i> أقل من الهدف</span>
+            <span><i class="legend-box zero"></i> لا توجد مبيعات</span>
+          </div>
+        </article>
+        <article class="panel">
+          <h3>ملاحظات التشغيل</h3>
+          <p>انقر على صف المندوب لفتح أو إغلاق قائمة عملائه. يمكنك التحويل بين قيمة المبيعات وعدد الحجوزات، والبحث والتصفية والتصدير.</p>
+        </article>
+        <article class="panel rank-panel">
+          <h3>أفضل 5 عملاء</h3>
+          <ol id="topClients"></ol>
+        </article>
+        <article class="panel rank-panel">
+          <h3>أفضل 5 مندوبي مبيعات</h3>
+          <ol id="topReps"></ol>
+        </article>
+      </section>
+
+      <footer>
+        <span>SALES100 v1.0.0</span>
+        <span>© 2026 ANC Logistics Solutions</span>
+      </footer>
+    </main>
+  </div>
+
+  <dialog id="cellDialog">
+    <button class="dialog-close" id="dialogClose">×</button>
+    <h3 id="dialogTitle"></h3>
+    <div id="dialogBody"></div>
+  </dialog>
+
+  <script src="mock-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
